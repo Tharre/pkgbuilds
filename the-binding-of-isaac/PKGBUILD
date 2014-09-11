@@ -1,0 +1,39 @@
+# Original maintainer: D. Can Celasun <dcelasun[at]gmail[dot]com>
+# TODO: add license
+
+pkgname=the-binding-of-isaac
+pkgver=20121219
+pkgrel=1
+pkgdesc="A randomly generated action RPG shooter with heavy Rogue-like elements."
+url="http://www.bindingofisaac.com"
+license=('custom: "commercial"')
+arch=('i686' 'x86_64')
+_gamepkg="the_binding_of_isaac_wrath_of_the_lamb-linux.tar.gz"
+
+[ "${CARCH}" = "x86_64" ] && depends=('lib32-sqlite3' 'lib32-libidn' 'lib32-libxt' 'lib32-libxxf86vm' 'lib32-gtk2' 'lib32-curl') \
+&& optdepends=('lib32-libvdpau: For flash player hardware acceleration')
+[ "${CARCH}" = "i686" ] && depends=('sqlite3' 'libidn' 'libxt' 'libxxf86vm' 'gtk2' 'nss' 'curl')\
+&& optdepends=('libvdpau: For flash player hardware acceleration')
+options=(!strip)
+
+# You can download the Humble Indie Bundle file manually, or you can configure
+# DLAGENTS in makepkg.conf to auto-download.
+DLAGENTS+=('hib::/usr/bin/echo "Could not find %u. Download manually to \"$(pwd)\" or setup hib:// DLAGENT in /etc/makepkg.conf."; exit 1')
+
+source=("${_gamepkg}"::"hib://${_gamepkg}"
+        "isaac.desktop" "isaac.png")
+md5sums=('f56410cdbed698cb984745e898585087'
+         'bd7ab23bafd88705b42c0c328f8f6717'
+         'bbc59b1fabb6036e4db450811bd3ab39')
+
+package(){
+  # create Launcher
+  install -d "${pkgdir}/usr/bin/"
+  mv "${srcdir}/Binding of Isaac/The Binding of Isaac + Wrath of the Lamb" "${srcdir}/isaac"
+  install -D -m755 "${srcdir}/isaac" "${pkgdir}/usr/bin/isaac"
+  # Install Desktop File and Icon
+  install -D -m644 "${srcdir}/isaac.desktop" \
+        "${pkgdir}/usr/share/applications/isaac.desktop"
+  install -D -m644 "${srcdir}/isaac.png" \
+        "${pkgdir}/usr/share/icons/isaac.png"
+}
