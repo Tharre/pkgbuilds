@@ -1,0 +1,15 @@
+[Unit]
+Description=Spigot server daemon
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/srv/craftbukkit/
+KillMode=none
+ExecStart=/usr/bin/screen -dmS craftbukkit su craftbukkit -c "/usr/bin/java -Xms1024M -Xmx1536M -XX:MaxPermSize=128M -XX:ParallelGCThreads=$(nproc) -jar /srv/craftbukkit/spigot.jar nogui"
+ExecStop=/usr/bin/screen -S craftbukkit -X stuff 'stop\n'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
