@@ -20,6 +20,9 @@ options=(!strip)
 # DLAGENTS in makepkg.conf to auto-download.
 DLAGENTS+=('hib::/usr/bin/echo "Could not find %u. Download manually to \"$(pwd)\" or setup hib:// DLAGENT in /etc/makepkg.conf."; exit 1')
 
+# Disable compression of the package
+PKGEXT='.pkg.tar'
+
 source=("${_gamepkg}"::"hib://${_gamepkg}"
         "isaac.desktop" "isaac.png")
 md5sums=('f56410cdbed698cb984745e898585087'
