@@ -3,7 +3,7 @@
 
 pkgname=the-binding-of-isaac
 pkgver=20121219
-pkgrel=1
+pkgrel=2
 pkgdesc="A randomly generated action RPG shooter with heavy Rogue-like elements."
 url="http://www.bindingofisaac.com"
 license=('custom: "commercial"')
