@@ -9,11 +9,10 @@ url="http://www.bindingofisaac.com"
 license=('custom: "commercial"')
 arch=('i686' 'x86_64')
 _gamepkg="the_binding_of_isaac_wrath_of_the_lamb-linux.tar.gz"
-
-[ "${CARCH}" = "x86_64" ] && depends=('lib32-sqlite3' 'lib32-libidn' 'lib32-libxt' 'lib32-libxxf86vm' 'lib32-gtk2' 'lib32-curl') \
-&& optdepends=('lib32-libvdpau: For flash player hardware acceleration')
-[ "${CARCH}" = "i686" ] && depends=('sqlite3' 'libidn' 'libxt' 'libxxf86vm' 'gtk2' 'nss' 'curl')\
-&& optdepends=('libvdpau: For flash player hardware acceleration')
+depends_x86_64=('lib32-sqlite3' 'lib32-libidn' 'lib32-libxt' 'lib32-libxxf86vm' 'lib32-gtk2' 'lib32-curl')
+optdepends_x86_64=('lib32-libvdpau: For flash player hardware acceleration')
+depends_i686=('sqlite3' 'libidn' 'libxt' 'libxxf86vm' 'gtk2' 'nss' 'curl')
+optdepends_i686=('libvdpau: For flash player hardware acceleration')
 options=(!strip)
 
 # You can download the Humble Indie Bundle file manually, or you can configure
