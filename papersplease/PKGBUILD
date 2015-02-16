@@ -9,6 +9,8 @@ arch=('i686' 'x86_64')
 url="http://papersplea.se"
 license=('custom:commercial')
 depends=('sh' 'hicolor-icon-theme')
+depends_x86_64=('lib32-gcc-libs' 'lib32-libgl')
+depends_i386=('gcc-libs' 'libgl')
 options=(!strip)
 source=("$pkgname.desktop"
         "launch-$pkgname.sh"
@@ -18,15 +20,6 @@ sha256sums=('478b736281d4d397bcff3972a548dc85bddae49342d561adefa25186310cd5ec'
             'e199745f2158fd04fd70ce463aa57452be3a5d8c9c390970e2cadbe7d2122dd4'
             'e8aaf890dbfa6363f0197892ca2abd5ac4a45918787a8524cf8c99d785000823'
             '50562ad2b01cb7558147cd05de4dc37c02deb2e66fc5d3bff77994785f9551d7')
-
-# Modify depends for the arch type
-if [ "$CARCH" = "x86_64" ]
-then
-    depends+=('lib32-gcc-libs' 'lib32-libgl')
-elif [ "$CARCH" = "i686" ]
-then
-    depends+=('gcc-libs' 'libgl')
-fi
 
 # Disable compression of the package
 PKGEXT='.pkg.tar'
