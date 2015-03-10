@@ -1,5 +1,5 @@
 pkgname=spigot-custom
-pkgver=1.8_R0.1
+pkgver=1.8.3_R0.1
 pkgrel=1
 pkgdesc="High performance Minecraft server implementation"
 arch=(any)
@@ -13,7 +13,7 @@ install=spigot.install
 source=("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
 "spigot.service")
 noextract=("BuildTools.jar")
-md5sums=('6aa7ab8cd7f72841cb1d4084c9d5b0ce'
+md5sums=('eb95c9d92fcb90513b62586a8989dfa3'
          '1c35e064da8ff6b62b804940309c651f')
 
 build() {
