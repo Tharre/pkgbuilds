@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=st
+Comment=A simple virtual terminal emulator for X.
+GenericName=Terminal Emulator
+Exec=st
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=System;TerminalEmulator;
+StartupNotify=true

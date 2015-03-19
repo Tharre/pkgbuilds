@@ -1,0 +1,44 @@
+# Maintainer: Tharre <tharre3@gmail.com>
+
+pkgname=st-custom
+_pkgname=st
+pkgver=0.5.r168.gc9357a8
+pkgrel=1
+pkgdesc='Simple virtual terminal emulator for X'
+url='http://git.suckless.org/st/'
+arch=('i686' 'x86_64' 'armv7h')
+license=('MIT')
+depends=('libxft')
+makedepends=('ncurses' 'libxext' 'git')
+source=('git://git.suckless.org/st' 'config.h' 'st-terminal.desktop' 'transparency.diff')
+md5sums=('SKIP'
+         '3479bef061e1b22e30624caa44fdcfa8'
+         'bbe3714218145d39b6920961f27692e6'
+         '97e7829670ad6aff4e57e611390c753a')
+
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+
+pkgver() {
+	cd "${srcdir}/${_pkgname}"
+	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd "${srcdir}/${_pkgname}"
+	patch < ../transparency.diff
+	ln "${srcdir}/config.h" config.h
+}
+
+build() {
+	cd "${srcdir}/${_pkgname}"
+	make
+}
+
+package() {
+	cd "${srcdir}/${_pkgname}"
+	make PREFIX=/usr DESTDIR="${pkgdir}" TERMINFO="${pkgdir}/usr/share/terminfo" install
+	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+	install -Dm644 README FAQ -t "${pkgdir}/usr/share/doc/${pkgname}"
+	install -Dm644 "${srcdir}/st-terminal.desktop" -t "${pkgdir}/usr/share/applications"
+}
