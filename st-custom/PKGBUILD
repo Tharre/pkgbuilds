@@ -2,8 +2,8 @@
 
 pkgname=st-custom
 _pkgname=st
-pkgver=0.5.r168.gc9357a8
-pkgrel=2
+pkgver=0.5.r169.g288f80c
+pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
 arch=('i686' 'x86_64' 'armv7h')
