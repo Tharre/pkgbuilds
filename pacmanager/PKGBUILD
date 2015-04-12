@@ -1,0 +1,24 @@
+# Maintainer: Tharre <tharre3@gmail.com>
+
+pkgname=pacmanager
+pkgver=v0.1.r0.gec7d815
+pkgrel=1
+pkgdesc='A small shellscript for keeping arch linux clean.'
+url='https://github.com/Tharre/pacmanager'
+arch=('i686' 'x86_64' 'armv7h')
+license=('MIT')
+optdepends=('yaourt: for -ia')
+makedepends=('git')
+source=('git://github.com/Tharre/pacmanager')
+md5sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${pkgname}"
+	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+package() {
+	cd "${srcdir}/${pkgname}"
+	install -Dm755 pacmanager.sh -t "${pkgdir}/usr/bin/"
+	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
