@@ -3,6 +3,7 @@
 pkgname=pacmanager
 pkgver=v0.1.r0.gec7d815
 pkgrel=1
+epoch=1
 pkgdesc='A small shellscript for keeping arch linux clean.'
 url='https://github.com/Tharre/pacmanager'
 arch=('i686' 'x86_64' 'armv7h')
