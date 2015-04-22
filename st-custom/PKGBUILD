@@ -2,7 +2,7 @@
 
 pkgname=st-custom
 _pkgname=st
-pkgver=0.5.r194.g56abffb
+pkgver=0.5.r203.g89807ed
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
@@ -12,9 +12,9 @@ depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
 source=('git://git.suckless.org/st' 'config.h' 'st-terminal.desktop' 'transparency.diff')
 md5sums=('SKIP'
-         'dbb887ab1c18fd059db9db1f2ba3668b'
+         'fd9020a68f91031b9b8438d6b0d083f4'
          'bbe3714218145d39b6920961f27692e6'
-         '97e7829670ad6aff4e57e611390c753a')
+         '672fe6866133f10ab4d61d7f17fc6aca')
 
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
