@@ -12,7 +12,7 @@ license=('GPL')
 depends=('pthsem>=2.0.8' 'gcc-libs')
 options=('!libtool')
 source=(http://www.auto.tuwien.ac.at/~mkoegler/eib/bcusdk_${pkgver}.tar.gz
-    eibd.patch eibd.socket eibd.service eibd.conf)
+        eibd.patch eibd.socket eibd.service eibd.conf)
 md5sums=('5f81bc4e6bb53564573d573e795a9a5f'
          'b9e50d68138fb74a4d0f6370a720d8fe'
          '82e079c823fa226146ba49b47c76bab7'
@@ -44,18 +44,13 @@ build() {
 }
 
 package() {
-    install -Dm644 "${srcdir}/eibd.socket" $pkgdir/usr/lib/systemd/system/eibd.socket
-    install -Dm644 "${srcdir}/eibd.service" $pkgdir/usr/lib/systemd/system/eibd.service
-    install -Dm644 "${srcdir}/eibd.conf" $pkgdir/etc/conf.d/eibd.conf
-
-    cd "${srcdir}/${_pkgname}-${pkgver}/eibd"
-    make DESTDIR="${pkgdir}" install
+    cd "${srcdir}"
+    install -Dm644 eibd.socket eibd.service -t "${pkgdir}/usr/lib/systemd/system"
+    install -Dm644 eibd.conf -t "${pkgdir}/etc/conf.d"
 
     cd "${srcdir}/${_pkgname}-${pkgver}/common"
     make DESTDIR="${pkgdir}" install
 
-    #cd ${pkgdir}
-    #rm -rf usr/share
-    #cd usr/bin
-    #rm -rf `ls | grep -v eib`
+    cd "${srcdir}/${_pkgname}-${pkgver}/eibd"
+    make DESTDIR="${pkgdir}" install
 }
