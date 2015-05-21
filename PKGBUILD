@@ -1,11 +1,11 @@
 # Maintainer: Sven Fischer <sven (at) leiderfischer.de>
 # Contributor: Thijs Vermeir <thijsvermeir@gmail.com>
 
-pkgbase=('bcusdk')
-pkgname=('eibd')
+pkgname=eibd
+_pkgname=bcusdk
 pkgver=0.0.5
 pkgrel=6
-pkgdesc="A free development environment for BCU1 and BCU2"
+pkgdesc="Daemon as interface to the EIB / KNX bus"
 arch=('i686' 'x86_64' 'arm' 'armv7h')
 url="http://www.auto.tuwien.ac.at/~mkoegler/index.php/bcusdk"
 license=('GPL')
@@ -20,12 +20,12 @@ md5sums=('5f81bc4e6bb53564573d573e795a9a5f'
          '815323eebff8bc442c1e653a34e6b0b4')
 
 prepare() {
-    cd "${srcdir}/${pkgbase}-${pkgver}"
+    cd "${srcdir}/${_pkgname}-${pkgver}"
     patch -p1 -i ${srcdir}/eibd.patch
 }
 
 build() {
-    cd "${srcdir}/${pkgbase}-${pkgver}"
+    cd "${srcdir}/${_pkgname}-${pkgver}"
 
     ./configure \
         --prefix=/usr \
@@ -36,24 +36,22 @@ build() {
         --enable-eibnetipserver \
         --enable-eibnetiptunnel
 
-    cd "${srcdir}/${pkgbase}-${pkgver}/common"
+    cd "${srcdir}/${_pkgname}-${pkgver}/common"
     make
 
-    cd "${srcdir}/${pkgbase}-${pkgver}/eibd"
+    cd "${srcdir}/${_pkgname}-${pkgver}/eibd"
     make
 }
 
-package_eibd() {
-    pkgdesc="Daemon as interface to the EIB / KNX bus"
-
+package() {
     install -Dm644 "${srcdir}/eibd.socket" $pkgdir/usr/lib/systemd/system/eibd.socket
     install -Dm644 "${srcdir}/eibd.service" $pkgdir/usr/lib/systemd/system/eibd.service
     install -Dm644 "${srcdir}/eibd.conf" $pkgdir/etc/conf.d/eibd.conf
 
-    cd "${srcdir}/${pkgbase}-${pkgver}/eibd"
+    cd "${srcdir}/${_pkgname}-${pkgver}/eibd"
     make DESTDIR="${pkgdir}" install
 
-    cd "${srcdir}/${pkgbase}-${pkgver}/common"
+    cd "${srcdir}/${_pkgname}-${pkgver}/common"
     make DESTDIR="${pkgdir}" install
 
     #cd ${pkgdir}
