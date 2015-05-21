@@ -10,7 +10,6 @@ arch=('i686' 'x86_64' 'arm' 'armv7h')
 url="http://www.auto.tuwien.ac.at/~mkoegler/index.php/bcusdk"
 license=('GPL')
 depends=('pthsem>=2.0.8' 'gcc-libs')
-options=('!libtool')
 source=(http://www.auto.tuwien.ac.at/~mkoegler/eib/bcusdk_${pkgver}.tar.gz
         eibd.patch eibd.socket eibd.service eibd.conf)
 md5sums=('5f81bc4e6bb53564573d573e795a9a5f'
