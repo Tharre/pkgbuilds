@@ -9,7 +9,7 @@ pkgdesc="A free development environment for BCU1 and BCU2"
 arch=('i686' 'x86_64' 'arm' 'armv7h')
 url="http://www.auto.tuwien.ac.at/~mkoegler/index.php/bcusdk"
 license=('GPL')
-depends=('pthsem>=2.0.8' 'gcc-libs-multilib')
+depends=('pthsem>=2.0.8' 'gcc-libs')
 options=('!libtool')
 source=(http://www.auto.tuwien.ac.at/~mkoegler/eib/bcusdk_${pkgver}.tar.gz
     eibd.patch eibd.socket eibd.service eibd.conf)
