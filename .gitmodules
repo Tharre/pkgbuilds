@@ -1,0 +1,3 @@
+[submodule "papersplease"]
+	path = papersplease
+	url = ssh://aur@aur4.archlinux.org/papersplease.git
