@@ -2,7 +2,7 @@
 
 pkgname=st-custom
 _pkgname=st
-pkgver=0.5.r229.gc035487
+pkgver=0.6.r13.gd032b61
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
@@ -10,11 +10,12 @@ arch=('i686' 'x86_64' 'armv7h')
 license=('MIT')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
-source=('git://git.suckless.org/st' 'config.h' 'st-terminal.desktop' 'transparency.diff')
+source=('git://git.suckless.org/st' 'config.h' 'st-terminal.desktop'
+        '0001-Add-transparency.patch')
 md5sums=('SKIP'
-         'fd9020a68f91031b9b8438d6b0d083f4'
+         'af42baee3a52e354a5b7a308047dde70'
          'bbe3714218145d39b6920961f27692e6'
-         '672fe6866133f10ab4d61d7f17fc6aca')
+         '71961029aa5cf2b9e01bc7bea7e5b757')
 
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
@@ -26,7 +27,7 @@ pkgver() {
 
 prepare() {
 	cd "${srcdir}/${_pkgname}"
-	patch < ../transparency.diff
+	patch < ../0001-Add-transparency.patch
 	ln -sf "${srcdir}/config.h" config.h
 }
 
