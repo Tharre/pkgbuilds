@@ -2,7 +2,7 @@
 
 pkgname=st-custom
 _pkgname=st
-pkgver=0.6.r19.gee5cad4
+pkgver=0.6.r31.g5d2d9d5
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
@@ -13,9 +13,9 @@ makedepends=('ncurses' 'libxext' 'git')
 source=('git://git.suckless.org/st' 'config.h' 'st-terminal.desktop'
         '0001-Add-transparency.patch')
 md5sums=('SKIP'
-         'd5c73780a8cfc8df4133653dfd99ecc2'
+         '103434eb772b2db7bb51da2e692e1422'
          'bbe3714218145d39b6920961f27692e6'
-         '2fb7d75cac7ebf49dbdd43eeed955020')
+         '3f642b61510b14fe233a082a98b1ea6f')
 
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")

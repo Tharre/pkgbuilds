@@ -18,7 +18,7 @@ static int borderpx = 2;
  */
 static char shell[] = "/bin/sh";
 static char *utmp = NULL;
-static char stty_args[] = "stty raw -echo -iexten echonl";
+static char stty_args[] = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
 static char vtiden[] = "\033[?6c";
@@ -104,6 +104,16 @@ static const char *colorname[] = {
 static unsigned int defaultfg = 7;
 static unsigned int defaultbg = 0;
 static unsigned int defaultcs = 256;
+
+/*
+ * Default shape of cursor
+ * 2: Block
+ * 4: Underline
+ * 6: IBeam
+ */
+
+static unsigned int cursorshape = 2;
+
 
 /*
  * Default colour and shape of the mouse cursor
