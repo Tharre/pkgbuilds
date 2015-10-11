@@ -10,12 +10,11 @@ arch=('i686' 'x86_64' 'armv7h')
 license=('MIT')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
-source=('git://git.suckless.org/st' 'config.h' 'st-terminal.desktop'
-        '0001-Add-transparency.patch')
+source=('st::git+https://github.com/Tharre/st-transparency.git' 'config.h'
+        'st-terminal.desktop')
 md5sums=('SKIP'
          '103434eb772b2db7bb51da2e692e1422'
-         'bbe3714218145d39b6920961f27692e6'
-         '3f642b61510b14fe233a082a98b1ea6f')
+         'bbe3714218145d39b6920961f27692e6')
 
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
@@ -27,7 +26,6 @@ pkgver() {
 
 prepare() {
 	cd "${srcdir}/${_pkgname}"
-	patch < ../0001-Add-transparency.patch
 	ln -sf "${srcdir}/config.h" config.h
 }
 
