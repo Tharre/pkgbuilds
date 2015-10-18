@@ -10,10 +10,9 @@ arch=('i686' 'x86_64' 'armv7h')
 license=('MIT')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
-source=('st::git+https://github.com/Tharre/st-transparency.git' 'config.h'
+source=('st::git+https://github.com/Tharre/st-transparency.git#branch=custom_config'
         'st-terminal.desktop')
 md5sums=('SKIP'
-         '103434eb772b2db7bb51da2e692e1422'
          'bbe3714218145d39b6920961f27692e6')
 
 provides=("${_pkgname}")
@@ -26,7 +25,7 @@ pkgver() {
 
 prepare() {
 	cd "${srcdir}/${_pkgname}"
-	ln -sf "${srcdir}/config.h" config.h
+	ln -sf config.def.h config.h
 }
 
 build() {
