@@ -1,7 +1,6 @@
 # Maintainer: Tharre <tharre3@gmail.com>
 
-pkgname=st-custom
-_pkgname=st
+pkgname=st
 pkgver=0.6.r31.g5d2d9d5
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
@@ -15,26 +14,26 @@ source=('st::git+https://github.com/Tharre/st-transparency.git#branch=custom_con
 md5sums=('SKIP'
          'bbe3714218145d39b6920961f27692e6')
 
-provides=("${_pkgname}")
-conflicts=("${_pkgname}")
+provides=("${pkgname}")
+conflicts=("${pkgname}")
 
 pkgver() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${srcdir}/${pkgname}"
 	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${srcdir}/${pkgname}"
 	ln -sf config.def.h config.h
 }
 
 build() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${srcdir}/${pkgname}"
 	make
 }
 
 package() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${srcdir}/${pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" TERMINFO="${pkgdir}/usr/share/terminfo" install
 	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 	install -Dm644 README FAQ -t "${pkgdir}/usr/share/doc/${pkgname}"
