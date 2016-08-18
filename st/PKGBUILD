@@ -1,7 +1,7 @@
 # Maintainer: Tharre <tharre3@gmail.com>
 
 pkgname=st
-pkgver=0.6.r91.g683c8e5
+pkgver=0.7.r3.gde3760b
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
