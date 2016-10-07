@@ -1,6 +1,7 @@
 # Maintainer: Tharre <tharre3@gmail.com>
 
-pkgname=st
+pkgname=st-custom
+_pkgname=st
 pkgver=0.7.r3.gde3760b
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
@@ -14,28 +15,28 @@ source=('st::git+https://github.com/Tharre/st-transparency.git#branch=custom_con
 md5sums=('SKIP'
          'bbe3714218145d39b6920961f27692e6')
 
-provides=("${pkgname}")
-conflicts=("${pkgname}")
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
 
 pkgver() {
-	cd "${srcdir}/${pkgname}"
+	cd "${srcdir}/${_pkgname}"
 	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
-	cd "${srcdir}/${pkgname}"
+	cd "${srcdir}/${_pkgname}"
 	ln -sf config.def.h config.h
 }
 
 build() {
-	cd "${srcdir}/${pkgname}"
+	cd "${srcdir}/${_pkgname}"
 	make
 }
 
 package() {
-	cd "${srcdir}/${pkgname}"
+	cd "${srcdir}/${_pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
-	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-	install -Dm644 README FAQ -t "${pkgdir}/usr/share/doc/${pkgname}"
+	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${_pkgname}"
+	install -Dm644 README FAQ -t "${pkgdir}/usr/share/doc/${_pkgname}"
 	install -Dm644 "${srcdir}/st-terminal.desktop" -t "${pkgdir}/usr/share/applications"
 }
