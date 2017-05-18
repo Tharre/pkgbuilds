@@ -18,22 +18,22 @@ sha256sums=('SKIP'
             'ec9f8e5505f13b450ef180edf3596de4d528fe507fbd1aed7fa715221e64770f')
 
 pkgver() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${_pkgname}"
 	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${_pkgname}"
 	ln -sf config.def.h config.h
 }
 
 build() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${_pkgname}"
 	make
 }
 
 package() {
-	cd "${srcdir}/${_pkgname}"
+	cd "${_pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 	install -Dm644 README FAQ -t "${pkgdir}/usr/share/doc/${pkgname}"
