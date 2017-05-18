@@ -10,13 +10,12 @@ arch=('i686' 'x86_64' 'armv7h')
 license=('MIT')
 depends=('libxft' 'adobe-source-code-pro-fonts' 'ttf-dejavu')
 makedepends=('ncurses' 'libxext' 'git')
-source=('st::git+https://github.com/Tharre/st-transparency.git#branch=custom_config'
-        'st-terminal.desktop')
-md5sums=('SKIP'
-         'bbe3714218145d39b6920961f27692e6')
-
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
+source=('st::git+https://github.com/Tharre/st-transparency.git#branch=custom_config'
+        'st-terminal.desktop')
+sha256sums=('SKIP'
+            'ec9f8e5505f13b450ef180edf3596de4d528fe507fbd1aed7fa715221e64770f')
 
 pkgver() {
 	cd "${srcdir}/${_pkgname}"
