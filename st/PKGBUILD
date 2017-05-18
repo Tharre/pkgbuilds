@@ -8,7 +8,7 @@ pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
 arch=('i686' 'x86_64' 'armv7h')
 license=('MIT')
-depends=('libxft')
+depends=('libxft' 'adobe-source-code-pro-fonts' 'ttf-dejavu')
 makedepends=('ncurses' 'libxext' 'git')
 source=('st::git+https://github.com/Tharre/st-transparency.git#branch=custom_config'
         'st-terminal.desktop')
