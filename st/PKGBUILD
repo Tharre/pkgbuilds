@@ -2,7 +2,7 @@
 
 pkgname=st-custom
 _pkgname=st
-pkgver=0.7.r27.g46a12d2
+pkgver=0.7.r31.gda85aa3
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
