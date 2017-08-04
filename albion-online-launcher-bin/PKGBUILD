@@ -1,7 +1,7 @@
 # Maintainer: Tharre <tharre3@gmail.com>
 
 pkgname=albion-online-launcher-bin
-pkgver=1.0.34.160
+pkgver=1.0.34.162
 pkgrel=1
 epoch=1
 pkgdesc="The first true cross-platform Sandbox MMO -- launcher client"
@@ -13,7 +13,7 @@ makedepends=('patchelf')
 source=(${pkgname}-${pkgver}.zip::"https://live.albiononline.com/autoupdate/launcher-linux-setup-${pkgver}"
         "Albion-Online" "albion-online-launcher.desktop")
 options=(!strip)
-sha256sums=('cef6d81697b12ff03dc52f6084429a648493d1acee27dc0973206b6cff248489'
+sha256sums=('041af9423cd86d3368631218215c7de93717efb7d9c8bd7b946ec6a0b0027cf4'
             '6e3967409add36965304f7c09567b274c1e7d1dbd090d20d904c4180976cd965'
             '33dd2dde06e27a18b04296c53998464080ccfd025bd0674acd7f08e8dc003660')
 
