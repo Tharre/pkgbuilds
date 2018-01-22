@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = pacman-mirrorlist
+
+[Action]
+Description = Updating pacman-mirrorlist with reflector and removing pacnew...
+When = PostTransaction
+Depends = reflector
+Exec = /usr/bin/reflector -p https -l 30 -f 10 -a 24 --score 100 --save /etc/pacman.d/mirrorlist
