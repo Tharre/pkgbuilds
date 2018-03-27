@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -o errexit -o errtrace
+
+export SNAPSHOT_TARGET="/.snapshots/home-$(date "+%Y-%m-%dT%H:%M:%S")"
+export BORG_REPO="borg@borg1.th73.ovh:."
+export BORG_PASSPHRASE="$(< ~/.borg_secret)"
+export BORG_RSH="ssh -o IdentitiesOnly=yes -i ~/.ssh/borg_key"
+export LC_COLLATE=C
+
+cleanup() {
+    cd /
+    sudo -n /usr/bin/backup-sudo cleanup
+}
+
+handle_failure() {
+    notify-send -u critical "Backup failed!"
+    echo "Backup failed!" >&2
+    cleanup
+    exit 2
+}
+
+trap cleanup EXIT
+trap handle_failure INT TERM ERR
+
+notify-send "Backup started."
+
+cleanup
+
+backup() {
+    # borg's caching of 'known' files is really dumb - it takes the full
+    # canonical path to check if it has already seen a file. This means that the
+    # path of files must never change if you want fast backups.
+    # As symlinks won't work, we use mount(8) to ensure the paths stay the same.
+    sudo -n backup-sudo mount "$1"
+
+    cd /backup
+    # TODO: break lock when necessary?
+    borg create --stats \
+                --exclude-from ~/.borg_exclude \
+                --show-rc \
+                ::"$(basename "$1")" .
+
+    cleanup
+    sudo -n backup-sudo delete_snapshot "$1"
+}
+
+if [ ! -d "$SNAPSHOT_TARGET" ]; then
+    sudo -n backup-sudo snapshot "$SNAPSHOT_TARGET"
+fi
+
+for d in /.snapshots/*/ ; do
+    echo "Now working on: $d"
+    backup "$d"
+done
+
+echo "Pruning repository."
+
+borg prune --show-rc --list \
+           --keep-hourly 24 \
+           --keep-daily   7 \
+           --keep-weekly  4 \
+           --keep-monthly 6
+
+echo "Backup finished."

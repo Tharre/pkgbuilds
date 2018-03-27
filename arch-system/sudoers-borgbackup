@@ -1,0 +1,4 @@
+# /etc/sudoers.d/borgbackup
+
+# allow systemd service files to call backup-sudo
+%wheel ALL=(root) NOPASSWD: /usr/bin/backup-sudo

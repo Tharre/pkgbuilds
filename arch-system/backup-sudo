@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+validate_path() {
+    # validate path
+    targetpath=$(realpath -m -- "$1")
+    if [[ "$targetpath" != /.snapshots/* ]]; then
+        echo "Invalid path given." >&2
+        exit 2
+    fi
+}
+
+case "$1" in
+    snapshot)
+        validate_path "$2"
+        btrfs subvolume snapshot -r -- /home "$2"
+        ;;
+    delete_snapshot)
+        validate_path "$2"
+        btrfs subvolume delete -- "$2"
+        ;;
+    mount)
+        validate_path "$2"
+        mkdir -p /backup
+        mount --bind -- "$2" /backup
+        ;;
+    cleanup)
+        umount /backup 2> /dev/null || true
+        rm -rf /backup
+        ;;
+    *)
+        echo "No command specified." >&2
+        exit 1
+        ;;
+esac

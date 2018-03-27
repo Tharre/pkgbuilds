@@ -1,0 +1,11 @@
+[Unit]
+Description=Runs backups every hour
+
+[Timer]
+OnCalendar=hourly
+OnBootSec=5min
+RandomizedDelaySec=5min
+Unit=borg-backup.service
+
+[Install]
+WantedBy=timers.target
