@@ -11,6 +11,7 @@ license=('custom')
 source=('base-system.install' 'etc-pacman.conf' 'etc-locale.conf'
         'etc-locale.gen' 'etc-vconsole.conf' 'mirrorupgrade.hook'
         'sudoers-wheel' 'etc-nsswitch.conf' 'etc-sysctl.conf'
+        '90-modprobe-d.hook'
 
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
@@ -25,6 +26,7 @@ sha256sums=('bb00c42f2802c12536c46700b948d41a43153d97a6986827b7c61203880e1ad1'
             '62c1a085f7a9d1c5d57b40516fea5d7e8dfb3593d5c0a713cd571c8e5bae2584'
             '9c1648e1e9219efbe1e4098952f7595f1ebb0eca629d2c8957079186c56d1822'
             '67b6ebe8a8e52cd60266f418b7af77c2ef0b2b6596de494ec5c37824f355a3ae'
+            '7467bb40e7d404ed249b34a0e410b8d452ebc4b90588d7e210bfa47011b5981d'
             '483a7d9350653c2cf22f36f67f1a83cc5c95232dfc10642a20d76e3c32c9e2e3'
             '99cd268de0e9b847d65f802e7bcbbf7318398a04db61523545d4002ebdfb4d9c'
             '27a22dfc1904c8c35e3855b4e1a52b96239d390de1c497ea9ab994ef8bd2b52b'
@@ -45,6 +47,7 @@ package_base-system() {
     install -Dm0644 sudoers-wheel "$pkgdir"/etc/sudoers.d/00_wheel
     install -Dm0644 etc-nsswitch.conf "$pkgdir"/etc/nsswitch.conf
     install -Dm0644 etc-sysctl.conf "$pkgdir"/etc/sysctl.d/99-sysctl.conf
+    install -Dm0644 90-modprobe-d.hook -t "$pkgdir"/usr/share/libalpm/hooks/
 
     ln -s /usr/share/zoneinfo/Europe/Berlin "$pkgdir"/etc/localtime
 }
