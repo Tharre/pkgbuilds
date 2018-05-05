@@ -2,11 +2,13 @@
 
 set -o errexit -o errtrace
 
-export SNAPSHOT_TARGET="/.snapshots/home-$(date "+%Y-%m-%dT%H:%M:%S")"
 export BORG_REPO="borg@borg1.th73.ovh:."
 export BORG_PASSPHRASE="$(< ~/.borg_secret)"
-export BORG_RSH="ssh -o IdentitiesOnly=yes -i ~/.ssh/borg_key"
+export BORG_RSH="ssh -o IdentitiesOnly=yes -o ConnectionAttempts=20 -i ~/.ssh/borg_key"
 export LC_COLLATE=C
+
+SNAPSHOT_TARGET="/.snapshots/home-$(date "+%Y-%m-%dT%H:%M:%S")"
+NETWORK_TIMEOUT=120
 
 cleanup() {
     cd /
@@ -22,8 +24,6 @@ handle_failure() {
 
 trap cleanup EXIT
 trap handle_failure INT TERM ERR
-
-notify-send "Backup started."
 
 cleanup
 
@@ -48,6 +48,17 @@ backup() {
 if [ ! -d "$SNAPSHOT_TARGET" ]; then
     sudo -n backup-sudo snapshot "$SNAPSHOT_TARGET"
 fi
+
+i=0
+while [ "$(nmcli -g connectivity general status)" = "none" ]; do
+    i=$[$i+1]
+    if [ $i -gt "$NETWORK_TIMEOUT" ]; then
+        echo "Network not up, skipping upload" >&2
+        exit 0
+    fi
+
+    sleep 1
+done
 
 for d in /.snapshots/*/ ; do
     echo "Now working on: $d"
