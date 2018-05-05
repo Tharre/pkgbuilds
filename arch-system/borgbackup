@@ -35,7 +35,6 @@ backup() {
     sudo -n backup-sudo mount "$1"
 
     cd /backup
-    # TODO: break lock when necessary?
     borg create --stats \
                 --exclude-from ~/.borg_exclude \
                 --show-rc \
@@ -59,6 +58,9 @@ while [ "$(nmcli -g connectivity general status)" = "none" ]; do
 
     sleep 1
 done
+
+# break locks in case the previous run was interrupted
+borg break-lock
 
 for d in /.snapshots/*/ ; do
     echo "Now working on: $d"
