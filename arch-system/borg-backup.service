@@ -4,6 +4,9 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
+Nice=19
+IOSchedulingClass=3
+IOSchedulingPriority=7
 ExecStart=/usr/bin/borgbackup
 Type=simple
 
