@@ -34,8 +34,12 @@ backup() {
     # As symlinks won't work, we use mount(8) to ensure the paths stay the same.
     sudo -n backup-sudo mount "$1"
 
+    if [ -t 1 ]; then
+        borg_progress="--progress"
+    fi
+
     cd /backup
-    borg create --stats \
+    borg create --stats $borg_progress \
                 --exclude-from ~/.borg_exclude \
                 --show-rc \
                 ::"$(basename "$1")" .
