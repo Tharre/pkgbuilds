@@ -16,7 +16,10 @@ cleanup() {
 }
 
 handle_failure() {
-    notify-send -u critical "Backup failed!"
+    if ! [ -t 1 ]; then
+        notify-send -u critical "Backup failed!"
+    fi
+
     echo "Backup failed!" >&2
     cleanup
     exit 2
