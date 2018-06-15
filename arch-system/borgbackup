@@ -56,8 +56,9 @@ if [ ! -d "$SNAPSHOT_TARGET" ]; then
     sudo -n backup-sudo snapshot "$SNAPSHOT_TARGET"
 fi
 
-if ! ssh -To BatchMode=yes -o ConnectTimeout=$NETWORK_TIMEOUT "$BORG_HOST" \
-        "borg --version" > /dev/null; then
+if ! ssh -To BatchMode=yes -o ConnectTimeout=$NETWORK_TIMEOUT \
+         -o IdentitiesOnly=yes -o ConnectionAttempts=20 -i ~/.ssh/borg_key \
+         "$BORG_HOST" "borg --version" > /dev/null; then
     echo "SSH server not reachable, skipping upload" >&2
     exit 0
 fi
