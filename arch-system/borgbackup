@@ -59,6 +59,9 @@ fi
 if ! ssh -To BatchMode=yes -o ConnectTimeout=$NETWORK_TIMEOUT \
          -o IdentitiesOnly=yes -o ConnectionAttempts=20 -i ~/.ssh/borg_key \
          "$BORG_HOST" "borg --version" > /dev/null; then
+    if ! [ -t 1 ]; then
+        notify-send "Backups: upload skipped"
+    fi
     echo "SSH server not reachable, skipping upload" >&2
     exit 0
 fi
