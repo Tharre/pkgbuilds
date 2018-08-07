@@ -2,8 +2,8 @@
 
 set -o errexit -o errtrace
 
-BORG_HOST="borg@borg1.th73.ovh"
-export BORG_REPO="$BORG_HOST:."
+BORG_HOST="12390@ch-s012.rsync.net"
+export BORG_REPO="$BORG_HOST:repos/$(hostname)"
 export BORG_PASSPHRASE="$(< ~/.borg_secret)"
 export BORG_RSH="ssh -o IdentitiesOnly=yes -o ConnectionAttempts=20 \
                      -o ConnectTimeout=30 -i ~/.ssh/borg_key"
