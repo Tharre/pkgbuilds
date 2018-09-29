@@ -1,0 +1,13 @@
+# Yubico Yubikey
+#
+# This is a ugly hack to prevent scdaemon from locking up after suspend.
+# Note that more civil methods, like gpgconf --kill scdaemon or just sending a
+# normal TERM doesn't work.
+# see https://wiki.gnupg.org/SmartCard#Known_problem_of_Yubikey
+ATTRS{idVendor}=="1050", \
+ATTRS{idProduct}=="0010|0405|0110|0111|0116", \
+ENV{ID_SECURITY_TOKEN}="1", \
+RUN+="/usr/bin/killall -9 scdaemon", \
+TAG+="uaccess"
+
+LABEL="yubico_end"

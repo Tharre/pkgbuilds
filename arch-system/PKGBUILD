@@ -11,7 +11,7 @@ license=('custom')
 source=('base-system.install' 'etc-pacman.conf' 'etc-locale.conf'
         'etc-locale.gen' 'etc-vconsole.conf' 'mirrorupgrade.hook'
         'sudoers-wheel' 'etc-nsswitch.conf' 'etc-sysctl.conf'
-        '90-modprobe-d.hook'
+        '90-modprobe-d.hook' 'etc-yubikey.rules'
 
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
@@ -27,6 +27,7 @@ sha256sums=('bb00c42f2802c12536c46700b948d41a43153d97a6986827b7c61203880e1ad1'
             '9c1648e1e9219efbe1e4098952f7595f1ebb0eca629d2c8957079186c56d1822'
             '67b6ebe8a8e52cd60266f418b7af77c2ef0b2b6596de494ec5c37824f355a3ae'
             '7467bb40e7d404ed249b34a0e410b8d452ebc4b90588d7e210bfa47011b5981d'
+            'dd84877b7f6f4330da489fa33f843c9a7c862562a3d78dc2feea5116ac846a79'
             '483a7d9350653c2cf22f36f67f1a83cc5c95232dfc10642a20d76e3c32c9e2e3'
             '99cd268de0e9b847d65f802e7bcbbf7318398a04db61523545d4002ebdfb4d9c'
             '42050ba722df1cd606288e82054e131dac99bf10506f4c8d52eb9bfc0a078d89'
@@ -48,6 +49,7 @@ package_base-system() {
     install -Dm0644 etc-nsswitch.conf "$pkgdir"/etc/nsswitch.conf
     install -Dm0644 etc-sysctl.conf "$pkgdir"/usr/lib/sysctl.d/99-sysctl.conf
     install -Dm0644 90-modprobe-d.hook -t "$pkgdir"/usr/share/libalpm/hooks/
+    install -Dm0644 etc-yubikey.rules -t "$pkgdir"/usr/lib/udev/rules.d
 
     ln -s /usr/share/zoneinfo/Europe/Berlin "$pkgdir"/etc/localtime
 }
