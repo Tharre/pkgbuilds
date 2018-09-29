@@ -46,7 +46,7 @@ package_base-system() {
     install -dm0750 "$pkgdir"/etc/sudoers.d/
     install -Dm0644 sudoers-wheel "$pkgdir"/etc/sudoers.d/00_wheel
     install -Dm0644 etc-nsswitch.conf "$pkgdir"/etc/nsswitch.conf
-    install -Dm0644 etc-sysctl.conf "$pkgdir"/etc/sysctl.d/99-sysctl.conf
+    install -Dm0644 etc-sysctl.conf "$pkgdir"/usr/lib/sysctl.d/99-sysctl.conf
     install -Dm0644 90-modprobe-d.hook -t "$pkgdir"/usr/share/libalpm/hooks/
 
     ln -s /usr/share/zoneinfo/Europe/Berlin "$pkgdir"/etc/localtime
