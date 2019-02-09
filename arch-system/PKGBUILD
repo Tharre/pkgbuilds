@@ -2,7 +2,7 @@
 
 pkgbase=arch-system
 pkgname=('base-system' 'backup-system' 'xps13')
-pkgver=$(date "+%Y.%m.%d")
+pkgver=$(printf '%(%Y.%m.%d)T')
 pkgrel=1
 pkgdesc="Arch Linux system configuration"
 arch=("any")
