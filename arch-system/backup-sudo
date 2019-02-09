@@ -12,6 +12,7 @@ validate_path() {
 case "$1" in
     snapshot)
         validate_path "$2"
+        touch /home
         btrfs subvolume snapshot -r -- /home "$2"
         ;;
     delete_snapshot)

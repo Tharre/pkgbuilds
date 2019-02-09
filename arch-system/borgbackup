@@ -49,6 +49,7 @@ backup() {
     cd /backup
     borg create --stats $borg_progress \
                 --exclude-from ~/.borg_exclude \
+                --timestamp . \
                 --show-rc \
                 ::"$(basename "$1")" . && rc=$? || rc=$?
     if [ $rc -eq 1 ]; then
