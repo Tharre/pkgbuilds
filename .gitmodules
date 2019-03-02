@@ -7,3 +7,6 @@
 [submodule "python-enlighten"]
 	path = python-enlighten
 	url = ssh://aur@aur.archlinux.org/python-enlighten.git
+[submodule "diod"]
+	path = diod
+	url = ssh://aur@aur.archlinux.org/diod.git
