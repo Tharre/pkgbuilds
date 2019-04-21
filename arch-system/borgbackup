@@ -6,7 +6,7 @@ BORG_HOST="12390@ch-s012.rsync.net"
 export BORG_REPO="$BORG_HOST:repos/$(hostname)"
 export BORG_PASSPHRASE="$(< ~/.borg_secret)"
 export BORG_RSH="ssh -o IdentitiesOnly=yes -o ConnectionAttempts=20 \
-                     -o ConnectTimeout=30 -i ~/.ssh/borg_key"
+                     -o ServerAliveInterval=30 -i ~/.ssh/borg_key"
 export LC_COLLATE=C
 
 SNAPSHOT_TARGET="/.snapshots/home-$(date "+%Y-%m-%dT%H:%M:%S")"
