@@ -3,3 +3,5 @@ pkg
 *.zip
 *.tar
 *.xz
+*.gz
+*.log
