@@ -36,8 +36,29 @@ sha256sums=('bb00c42f2802c12536c46700b948d41a43153d97a6986827b7c61203880e1ad1'
             '5613c98d32e513a973e8a0e250ab0b267882a73615f507b6208d4a5f21487fe6')
 
 package_base-system() {
-    depends=('gvim' 'zsh' 'tmux' 'htop' 'git' 'reflector' 'sudo' 'avahi'
-             'nss-mdns' 'ttf-dejavu' 'chromium' 'ttf-liberation')
+    depends=('avahi'
+             'chromium'
+             'fd'
+             'fzf'
+             'git'
+             'gvim'
+             'htop'
+             'isync'
+             'mpv'
+             'mutt'
+             'nss-mdns'
+             'pass'
+             'reflector'
+             'ripgrep'
+             'sudo'
+             'syncthing'
+             'tmux'
+             'ttf-dejavu'
+             'ttf-liberation'
+             'w3m'
+             'weechat'
+             'zsh'
+    )
 
     install -Dm0644 etc-pacman.conf "$pkgdir"/etc/pacman.conf
     install -Dm0644 etc-locale.conf "$pkgdir"/etc/locale.conf
