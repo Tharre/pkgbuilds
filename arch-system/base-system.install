@@ -3,6 +3,7 @@ post_upgrade() {
 	locale-gen
 
 	systemctl enable --now avahi-daemon.service
+	mount | grep -q "on / type btrfs" && systemctl enable --now btrfs-scrub@-.timer
 }
 
 post_install() {
@@ -11,4 +12,5 @@ post_install() {
 
 pre_remove() {
 	systemctl disable avahi-daemon.service
+	systemctl disable btrfs-scrub@-.timer
 }
