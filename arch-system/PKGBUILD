@@ -42,7 +42,7 @@ package_base-system() {
     install -Dm0644 etc-locale.conf "$pkgdir"/etc/locale.conf
     install -Dm0644 etc-locale.gen "$pkgdir"/etc/locale.gen
     install -Dm0644 etc-vconsole.conf "$pkgdir"/etc/vconsole.conf
-    install -Dm0644 mirrorupgrade.hook -t "$pkgdir"/etc/pacman.d/hooks
+    install -Dm0644 mirrorupgrade.hook -t "$pkgdir"/usr/share/libalpm/hooks/
     install -dm0750 "$pkgdir"/etc/sudoers.d/
     install -Dm0644 sudoers-wheel "$pkgdir"/etc/sudoers.d/00_wheel
     install -Dm0644 etc-nsswitch.conf "$pkgdir"/etc/nsswitch.conf
