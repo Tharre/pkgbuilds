@@ -8,17 +8,15 @@ pkgdesc="Arch Linux system configuration"
 arch=("any")
 url=""
 license=('custom')
-source=('base-system.install' 'etc-pacman.conf' 'etc-locale.conf'
-        'etc-locale.gen' 'etc-vconsole.conf' 'mirrorupgrade.hook'
-        'sudoers-wheel' 'etc-nsswitch.conf' 'etc-sysctl.conf'
-        '90-modprobe-d.hook' 'etc-yubikey.rules'
+source=('etc-pacman.conf' 'etc-locale.conf' 'etc-locale.gen' 'etc-vconsole.conf'
+        'mirrorupgrade.hook' 'sudoers-wheel' 'etc-nsswitch.conf'
+        'etc-sysctl.conf' '90-modprobe-d.hook' 'etc-yubikey.rules'
 
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
 
         'xps13-i915.conf')
-sha256sums=('bb00c42f2802c12536c46700b948d41a43153d97a6986827b7c61203880e1ad1'
-            'b3b540ac0dd68831d813e34dd8465cd00e8ba6a56fa6e5a162dc5ef469ec584c'
+sha256sums=('b3b540ac0dd68831d813e34dd8465cd00e8ba6a56fa6e5a162dc5ef469ec584c'
             '70b74b741f3b1b58eeb97d8d5b9e6148a35ff8dced47cf4a231c1d0420aff5eb'
             '61359bca48f246bc90d90204ad894bfc22665d789b130fc838e9926dc47ab3a3'
             '978271534da06356159eb24c0cee32b0024029d41df836ab76a964dfd7d36447'
@@ -38,6 +36,7 @@ sha256sums=('bb00c42f2802c12536c46700b948d41a43153d97a6986827b7c61203880e1ad1'
 package_base-system() {
     depends=('gvim' 'zsh' 'tmux' 'htop' 'git' 'reflector' 'sudo' 'avahi'
              'nss-mdns' 'ttf-dejavu' 'chromium' 'ttf-liberation')
+    install="$pkgname.install"
 
     install -Dm0644 etc-pacman.conf "$pkgdir"/etc/pacman.conf
     install -Dm0644 etc-locale.conf "$pkgdir"/etc/locale.conf

@@ -1,10 +1,14 @@
-post_install() {
+post_upgrade() {
 	# in case it wasn't already run by glibc
 	locale-gen
 
-	systemctl --global enable avahi-daemon.service
+	systemctl enable --now avahi-daemon.service
+}
+
+post_install() {
+	post_upgrade
 }
 
 pre_remove() {
-	systemctl --global disable avahi-daemon.service
+	systemctl disable avahi-daemon.service
 }
