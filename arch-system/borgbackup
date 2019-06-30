@@ -56,7 +56,7 @@ backup() {
         # borg defines return code 1 as warning, usually permission stuff
         notify_user "Warning: borgbackup returned 1. Check logs"
     elif [ $rc -gt 1 ]; then
-        handle_failure
+        borg list | grep -q "$(basename "$1")" || handle_failure
     fi
 
     cleanup
