@@ -1,6 +1,3 @@
-[submodule "papersplease"]
-	path = papersplease
-	url = ssh://aur@aur4.archlinux.org/papersplease.git
 [submodule "grokmirror"]
 	path = grokmirror
 	url = ssh://aur@aur.archlinux.org/grokmirror.git
