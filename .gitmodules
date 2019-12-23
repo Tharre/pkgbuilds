@@ -1,15 +1,15 @@
 [submodule "grokmirror"]
 	path = grokmirror
-	url = ssh://aur@aur.archlinux.org/grokmirror.git
+	url = https://aur.archlinux.org/grokmirror
 [submodule "python-enlighten"]
 	path = python-enlighten
-	url = ssh://aur@aur.archlinux.org/python-enlighten.git
+	url = https://aur.archlinux.org/python-enlighten
 [submodule "diod"]
 	path = diod
-	url = ssh://aur@aur.archlinux.org/diod.git
+	url = https://aur.archlinux.org/diod
 [submodule "haskell-tasty-hspec"]
 	path = haskell-tasty-hspec
-	url = ssh://aur@aur.archlinux.org/haskell-tasty-hspec.git
+	url = https://aur.archlinux.org/haskell-tasty-hspec
 [submodule "pandoc-pyplot"]
 	path = pandoc-pyplot
-	url = ssh://aur@aur.archlinux.org/pandoc-pyplot.git
+	url = https://aur.archlinux.org/pandoc-pyplot
