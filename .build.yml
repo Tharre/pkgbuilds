@@ -1,0 +1,37 @@
+image: archlinux
+packages:
+  - devtools
+  - python-srcinfo
+  - rsync
+sources:
+  - https://aur.archlinux.org/aurutils
+secrets:
+  - 780c04c7-422e-4e78-ae8f-e80d837c4ea6
+tasks:
+  - setup: |
+      mkdir -p ~/.gnupg
+      echo "keyserver-options auto-key-retrieve" > ~/.gnupg/gpg.conf
+      gpg --recv-keys DBE7D3DD8C81D58D0A13D0E76BC26A17B9B7018A
+      echo "th73.ovh ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEqCtC2LuwcWztCNr96VzrG5TJ2yJSSMVnQ+yKqB95CZ" > ~/.ssh/known_hosts
+      cd aurutils
+      makepkg -si --noprogressbar --noconfirm
+
+      mkdir -p /home/build/local
+      repo-add /home/build/local/localrepo.db.tar
+
+      cat << EOF | sudo tee -a /etc/pacman.conf
+      [localrepo]
+      SigLevel = Optional TrustAll
+      Server = file:///home/build/local
+
+      [sr.ht]
+      SigLevel = Optional TrustAll
+      Server = https://archmirror.th73.ovh/sr.ht/
+      EOF
+      sudo pacman -Sy --noprogressbar
+  - build: |
+      cd pkgbuilds
+      ./build.sh
+  - upload: |
+      rsync -av --ignore-missing-args local/*.pkg.tar* archmirror@th73.ovh:http/sr.ht
+      ssh archmirror@th73.ovh "repo-add -p http/sr.ht/sr.ht.db.tar.gz http/sr.ht/*.pkg.tar*"
