@@ -13,3 +13,27 @@
 [submodule "pandoc-pyplot"]
 	path = pandoc-pyplot
 	url = https://aur.archlinux.org/pandoc-pyplot
+[submodule "magic-wormhole"]
+	path = magic-wormhole
+	url = https://aur.archlinux.org/magic-wormhole
+[submodule "intel-undervolt"]
+	path = intel-undervolt
+	url = https://aur.archlinux.org/intel-undervolt
+[submodule "python-pwntools"]
+	path = python-pwntools
+	url = https://aur.archlinux.org/python-pwntools
+[submodule "urlview"]
+	path = urlview
+	url = https://aur.archlinux.org/urlview
+[submodule "yubico-piv-tool"]
+	path = yubico-piv-tool
+	url = https://aur.archlinux.org/yubico-piv-tool
+[submodule "python-hkdf"]
+	path = python-hkdf
+	url = https://aur.archlinux.org/python-hkdf
+[submodule "python-spake2"]
+	path = python-spake2
+	url = https://aur.archlinux.org/python-spake2
+[submodule "python-txtorcon"]
+	path = python-txtorcon
+	url = https://aur.archlinux.org/python-txtorcon
