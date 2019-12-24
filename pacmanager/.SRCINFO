@@ -1,0 +1,17 @@
+pkgbase = pacmanager
+	pkgdesc = A small shellscript for keeping arch linux clean.
+	pkgver = v0.1.r0.gec7d815
+	pkgrel = 1
+	epoch = 1
+	url = https://github.com/Tharre/pacmanager
+	arch = i686
+	arch = x86_64
+	arch = armv7h
+	license = MIT
+	makedepends = git
+	optdepends = yaourt: for -ia
+	source = git://github.com/Tharre/pacmanager
+	md5sums = SKIP
+
+pkgname = pacmanager
+
