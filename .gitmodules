@@ -37,3 +37,6 @@
 [submodule "python-txtorcon"]
 	path = python-txtorcon
 	url = https://aur.archlinux.org/python-txtorcon
+[submodule "age"]
+	path = age
+	url = https://aur.archlinux.org/age
