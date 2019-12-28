@@ -40,3 +40,6 @@
 [submodule "age"]
 	path = age
 	url = https://aur.archlinux.org/age
+[submodule "aurutils"]
+	path = aurutils
+	url = https://aur.archlinux.org/aurutils
