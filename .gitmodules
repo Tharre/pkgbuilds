@@ -52,3 +52,6 @@
 [submodule "python-vdf"]
 	path = python-vdf
 	url = https://aur.archlinux.org/python-vdf
+[submodule "chromium-widevine"]
+	path = chromium-widevine
+	url = https://aur.archlinux.org/chromium-widevine
