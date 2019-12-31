@@ -3,6 +3,8 @@ packages:
   - devtools
   - python-srcinfo
   - rsync
+repositories:
+  sr.ht: https://archmirror.th73.ovh/sr.ht#F9CC7EE42BB006F991273094E20AEF8049CC3757
 sources:
   - https://aur.archlinux.org/aurutils
 secrets:
@@ -23,14 +25,16 @@ tasks:
       makepkg -si --noprogressbar --noconfirm
       cd ..
 
-      mkdir -p /home/build/local
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz /home/build/local/localrepo.db.tar.gz
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz.sig /home/build/local/localrepo.db.tar.gz.sig
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz /home/build/local/localrepo.files.tar.gz
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz.sig /home/build/local/localrepo.files.tar.gz.sig
+      mkdir -p local
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz local/localrepo.db.tar.gz
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz.sig local/localrepo.db.tar.gz.sig
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz local/localrepo.files.tar.gz
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz.sig local/localrepo.files.tar.gz.sig
       ln -s localrepo.db.tar.gz local/localrepo.db
       ln -s localrepo.files.tar.gz local/localrepo.files
       #repo-add /home/build/local/localrepo.db.tar
+
+      cat /etc/pacman.conf
 
       cat << EOF | sudo tee -a /etc/pacman.conf
       [localrepo]
