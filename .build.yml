@@ -20,10 +20,13 @@ tasks:
 
       cd aurutils
       makepkg -si --noprogressbar --noconfirm
+      cd ..
 
       mkdir -p /home/build/local
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db /home/build/local/localrepo.db
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files /home/build/local/localrepo.files
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz /home/build/local/localrepo.db.tar.gz
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz /home/build/local/localrepo.files.tar.gz
+      ln -s localrepo.db.tar.gz local/localrepo.db
+      ln -s localrepo.files.tar.gz local/localrepo.files
       #repo-add /home/build/local/localrepo.db.tar
 
       cat << EOF | sudo tee -a /etc/pacman.conf
