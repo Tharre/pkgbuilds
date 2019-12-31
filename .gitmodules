@@ -49,3 +49,6 @@
 [submodule "protontricks"]
 	path = protontricks
 	url = https://aur.archlinux.org/protontricks
+[submodule "python-vdf"]
+	path = python-vdf
+	url = https://aur.archlinux.org/python-vdf
