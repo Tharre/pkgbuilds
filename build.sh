@@ -8,7 +8,7 @@ cur_pkgver() {
 
 for dir in $(aur graph */.SRCINFO | tsort | tac); do
 	pushd "$dir" > /dev/null
-	if [ $(vercmp $(join -o 1.2,2.2 -a2 -e '0' <(aur repo -Sld sr.ht) <(cur_pkgver) | head -n1)) -lt 0 ]; then
+	if [ $(vercmp $(join -o 1.2,2.2 -a2 -e 'v0' <(aur repo -Sld sr.ht) <(cur_pkgver) | head -n1)) -lt 0 ]; then
 		echo "=== Building $dir ==="
 		aur build -s -c -r /home/build/local -d localrepo -- -c -u -- --noprogressbar
 	fi
