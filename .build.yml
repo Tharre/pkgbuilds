@@ -24,7 +24,9 @@ tasks:
 
       mkdir -p /home/build/local
       scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz /home/build/local/localrepo.db.tar.gz
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz.sig /home/build/local/localrepo.db.tar.gz.sig
       scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz /home/build/local/localrepo.files.tar.gz
+      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz.sig /home/build/local/localrepo.files.tar.gz.sig
       ln -s localrepo.db.tar.gz local/localrepo.db
       ln -s localrepo.files.tar.gz local/localrepo.files
       #repo-add /home/build/local/localrepo.db.tar
