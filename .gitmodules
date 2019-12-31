@@ -46,3 +46,6 @@
 [submodule "intellij-idea-ultimate-edition"]
 	path = intellij-idea-ultimate-edition
 	url = https://aur.archlinux.org/intellij-idea-ultimate-edition
+[submodule "protontricks"]
+	path = protontricks
+	url = https://aur.archlinux.org/protontricks
