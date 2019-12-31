@@ -12,6 +12,7 @@ tasks:
   - setup: |
       export GPGKEY=F9CC7EE42BB006F991273094E20AEF8049CC3757
       sudo pacman-key --recv-keys F9CC7EE42BB006F991273094E20AEF8049CC3757
+      sudo pacman-key --lsign-key F9CC7EE42BB006F991273094E20AEF8049CC3757
 
       mkdir -p ~/.gnupg
       echo "keyserver-options auto-key-retrieve" > ~/.gnupg/gpg.conf
@@ -37,7 +38,7 @@ tasks:
       Server = file:///home/build/local
 
       [sr.ht]
-      SigLevel = Optional TrustAll
+      SigLevel = Required TrustedOnly
       Server = https://archmirror.th73.ovh/sr.ht/
       EOF
       sudo pacman -Sy --noprogressbar
