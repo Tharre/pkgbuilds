@@ -3,8 +3,6 @@ packages:
   - devtools
   - python-srcinfo
   - rsync
-repositories:
-  sr.ht: https://archmirror.th73.ovh/sr.ht#F9CC7EE42BB006F991273094E20AEF8049CC3757
 sources:
   - https://aur.archlinux.org/aurutils
 secrets:
@@ -34,11 +32,11 @@ tasks:
       ln -s localrepo.files.tar.gz local/localrepo.files
       #repo-add /home/build/local/localrepo.db.tar
 
-      cat /etc/pacman.conf
-
+      # TODO: use repositories feature of build.sr.ht once setting a siglevel is
+      # supported
       cat << EOF | sudo tee -a /etc/pacman.conf
       [localrepo]
-      SigLevel = Optional TrustAll
+      SigLevel = Required TrustedOnly
       Server = file:///home/build/local
 
       [sr.ht]
