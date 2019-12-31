@@ -55,3 +55,6 @@
 [submodule "chromium-widevine"]
 	path = chromium-widevine
 	url = https://aur.archlinux.org/chromium-widevine
+[submodule "znc-backlog-git"]
+	path = znc-backlog-git
+	url = https://aur.archlinux.org/znc-backlog-git
