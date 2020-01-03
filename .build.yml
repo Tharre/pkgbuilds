@@ -24,13 +24,25 @@ tasks:
       cd ..
 
       mkdir -p local
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz local/localrepo.db.tar.gz
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz.sig local/localrepo.db.tar.gz.sig
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz local/localrepo.files.tar.gz
-      scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz.sig local/localrepo.files.tar.gz.sig
-      ln -s localrepo.db.tar.gz local/localrepo.db
-      ln -s localrepo.files.tar.gz local/localrepo.files
-      #repo-add /home/build/local/localrepo.db.tar
+      REPO_URL="https://archmirror.th73.ovh/sr.ht/sr.ht.db.sig"
+      if curl --output /dev/null --silent --head --fail "$REPO_URL"; then
+          scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz local/localrepo.db.tar.gz
+          scp archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz.sig local/localrepo.db.tar.gz.sig
+          scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz local/localrepo.files.tar.gz
+          scp archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz.sig local/localrepo.files.tar.gz.sig
+          ln -s localrepo.db.tar.gz local/localrepo.db
+          ln -s localrepo.files.tar.gz local/localrepo.files
+          ln -s localrepo.db.tar.gz.sig local/localrepo.db.sig
+          ln -s localrepo.files.tar.gz.sig local/localrepo.files.sig
+
+          cat << EOF | sudo tee -a /etc/pacman.conf
+      [sr.ht]
+      SigLevel = Required TrustedOnly
+      Server = https://archmirror.th73.ovh/sr.ht/
+      EOF
+      else
+          repo-add -s local/localrepo.db.tar.gz
+      fi
 
       # TODO: use repositories feature of build.sr.ht once setting a siglevel is
       # supported
@@ -38,10 +50,6 @@ tasks:
       [localrepo]
       SigLevel = Required TrustedOnly
       Server = file:///home/build/local
-
-      [sr.ht]
-      SigLevel = Required TrustedOnly
-      Server = https://archmirror.th73.ovh/sr.ht/
       EOF
       sudo pacman -Sy --noprogressbar
   - build: |
