@@ -56,9 +56,15 @@ tasks:
       cd pkgbuilds
       ./build.sh
   - upload: |
-      rsync -av --ignore-missing-args local/*.pkg.tar* archmirror@th73.ovh:http/sr.ht
-      scp local/localrepo.files.tar.gz archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz
-      scp local/localrepo.files.tar.gz.sig archmirror@th73.ovh:http/sr.ht/sr.ht.files.tar.gz.sig
-      scp local/localrepo.db.tar.gz archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz
-      scp local/localrepo.db.tar.gz.sig archmirror@th73.ovh:http/sr.ht/sr.ht.db.tar.gz.sig
-      #ssh archmirror@th73.ovh "repo-add -p http/sr.ht/sr.ht.db.tar.gz http/sr.ht/*.pkg.tar.xz"
+      cd local/
+      mv localrepo.files sr.ht.files
+      mv localrepo.files.sig sr.ht.files.sig
+      mv localrepo.files.tar.gz sr.ht.files.tar.gz
+      mv localrepo.files.tar.gz.sig sr.ht.files.tar.gz.sig
+      mv localrepo.db sr.ht.db
+      mv localrepo.db.sig sr.ht.db.sig
+      mv localrepo.db.tar.gz sr.ht.db.tar.gz
+      mv localrepo.db.tar.gz.sig sr.ht.db.tar.gz.sig
+      cd ..
+
+      rsync -av local/ archmirror@th73.ovh:http/sr.ht
