@@ -1,12 +1,12 @@
 [submodule "grokmirror"]
 	path = grokmirror
-	url = ssh://aur@aur.archlinux.org/grokmirror.git
+	url = https://aur.archlinux.org/grokmirror.git
 [submodule "python-enlighten"]
 	path = python-enlighten
-	url = ssh://aur@aur.archlinux.org/python-enlighten.git
+	url = https://aur.archlinux.org/python-enlighten.git
 [submodule "diod"]
 	path = diod
-	url = ssh://aur@aur.archlinux.org/diod.git
+	url = https://aur.archlinux.org/diod.git
 [submodule "pandoc-pyplot"]
 	path = pandoc-pyplot
-	url = ssh://aur@aur.archlinux.org/pandoc-pyplot.git
+	url = https://aur.archlinux.org/pandoc-pyplot.git
