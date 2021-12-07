@@ -1,6 +1,3 @@
-[submodule "papersplease"]
-	path = papersplease
-	url = ssh://aur@aur4.archlinux.org/papersplease.git
 [submodule "grokmirror"]
 	path = grokmirror
 	url = ssh://aur@aur.archlinux.org/grokmirror.git
@@ -10,9 +7,6 @@
 [submodule "diod"]
 	path = diod
 	url = ssh://aur@aur.archlinux.org/diod.git
-[submodule "haskell-tasty-hspec"]
-	path = haskell-tasty-hspec
-	url = ssh://aur@aur.archlinux.org/haskell-tasty-hspec.git
 [submodule "pandoc-pyplot"]
 	path = pandoc-pyplot
 	url = ssh://aur@aur.archlinux.org/pandoc-pyplot.git
