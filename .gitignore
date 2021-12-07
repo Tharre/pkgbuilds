@@ -4,4 +4,5 @@ pkg
 *.tar
 *.xz
 *.gz
+*.zst
 *.log
