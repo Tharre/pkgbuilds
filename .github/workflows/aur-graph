@@ -1,0 +1,136 @@
+#!/bin/awk -f
+# Taken from https://github.com/AladW/aurutils/blob/master/lib/aur-graph
+# (ISC License)
+#
+# aur-graph - print package/dependency pairs
+
+# < 0 : if ver1 < ver2
+# = 0 : if ver1 == ver2
+# > 0 : if ver1 > ver2
+function get_vercmp(ver1, ver2, op) {
+    command = ("vercmp " ver1 " " ver2)
+
+    if (op == "-" || ver2 == "-") {
+        return "true" # dependency is unversioned
+    } else if (op == "=") {
+        return (ver1 == ver2) # common case
+    } else if (op == "<") {
+        command | getline
+        close(command)
+        return ($1 < 0)
+    } else if (op == ">") {
+        command | getline
+        close(command)
+        return ($1 > 0)
+    } else if (op == "<=") {
+        command | getline
+        close(command)
+        return ($1 <= 0)
+    } else if (op == ">=") {
+        command | getline
+        close(command)
+        return ($1 >= 0)
+    } else {
+        printf("invalid operation\n") > "/dev/stderr"
+        exit 1
+    }
+}
+
+/pkgbase/ {
+    in_split_pkg = 0
+    pkgbase = $3
+    pkgver  = ""
+
+    # track both the pkgbases themselves and their number of deps
+    dep_counts[pkgbase] = 0
+}
+
+/^\tpkgver/ {
+    if (!in_split_pkg) {
+        pkgver = $3
+    }
+}
+
+/^\t(make|check)?depends/ {
+    if (!in_split_pkg) {
+        # POSIX array of arrays!
+        pkg_deps[pkgbase, ++dep_counts[pkgbase]] = $3 # versioned
+    }
+}
+
+/^$/ {
+    in_split_pkg = 1
+}
+
+/pkgname/ {
+    pkg_map[$3] = pkgbase # node
+    ver_map[$3] = pkgver  # weight
+}
+
+/^\tprovides/ {
+    split($3, prov, "=")
+
+    # if provider is unversioned, use pkgver
+    if ("2" in prov)
+        ver_map[prov[1]] = prov[2]
+    else
+        ver_map[prov[1]] = pkgver
+
+    # append node
+    pkg_map[prov[1]] = pkgbase
+}
+
+END {
+    _vercmp_exit = 0
+
+    for (pkgbase in dep_counts) {
+        # add a loop to isolated nodes (#402)
+        printf("%s\t%s\n", pkgbase, pkgbase)
+
+        for (dep = 1; dep <= dep_counts[pkgbase]; dep++) {
+            dep_op = "-" # unversioned / no comparison
+
+            # valid operators (important: <= before <)
+            split("<=|>=|<|=|>", cmp, "|")
+
+            # split: fourth argument is gawk extension
+            for (i in cmp) {
+                split(pkg_deps[pkgbase, dep], dep_split, cmp[i])
+
+                if ("2" in dep_split) {
+                    dep_op = cmp[i]
+                    break
+                }
+            }
+
+            if ("1" in dep_split)
+                dep_pkgname = dep_split[1]
+            else
+                exit 2
+
+            if ("2" in dep_split)
+                dep_pkgver = dep_split[2]
+            else
+                dep_pkgver = "-"
+
+            # only print dependency if it was encountered before
+            if (dep_pkgname in pkg_map == 0)
+                continue
+
+            # run vercmp with provider and versioned dependency
+            if (get_vercmp(ver_map[dep_pkgname], dep_pkgver, dep_op)) {
+                printf("%s\t%s\n", pkgbase, pkg_map[dep_pkgname])
+            } else {
+                printf("invalid node: %s %s (required: %s%s)\n",
+                       dep_pkgname, ver_map[dep_pkgname], dep_op, dep_pkgver) > "/dev/stderr"
+                close("/dev/stderr")
+
+                # delay mismatches to loop end
+                _vercmp_exit = 1
+            }
+        }
+    }
+
+    if (_vercmp_exit)
+        exit _vercmp_exit
+}

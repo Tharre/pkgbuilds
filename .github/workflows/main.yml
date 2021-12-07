@@ -1,0 +1,100 @@
+name: package-build
+
+env:
+  # don't use spaces newlines or similar for these, it will not work
+  RELEASE_NAME: repository
+  REPO_NAME: custom
+  GPGKEY: A87E7322DD5ABA13A4099927208F3CC866C53553
+
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+      options: --privileged
+    steps:
+      - name: Prepare environment
+        run: |
+          systemd-machine-id-setup
+          pacman-key --init
+          pacman -Syu --noconfirm git expac devtools
+
+          cat << EOF >> /etc/makepkg.conf
+          GPGKEY="$GPGKEY"
+          PACKAGER="Github Actions <$GITHUB_SERVER_URL/$GITHUB_REPOSITORY>"
+          PKGDEST=/repository
+          EOF
+
+          useradd -m -G wheel -s /bin/bash build
+          echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/00_wheel
+
+          mkdir -p /home/build/.gnupg
+          echo "keyserver-options auto-key-retrieve" > /home/build/.gnupg/gpg.conf
+          echo "keyserver hkps://keys.openpgp.org" >> /home/build/.gnupg/gpg.conf
+          chown build:build /home/build/.gnupg/{,gpg.conf}
+
+          # needed because these docker images don't have proper locale support
+          sed -i "s/en_US de_DE/en_US/g" /usr/bin/mkarchroot
+
+          dbus-uuidgen --ensure=/etc/machine-id
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Download repository database
+        run: |
+          mkdir /repository
+          # makepkg complains about directory permissions, even if it's only run
+          # with --packagelist
+          chown build:root /repository
+          cd /repository
+          BASE_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/$RELEASE_NAME/$REPO_NAME"
+          curl -fL --remote-name-all "$BASE_URL"{.db.tar.gz,.files.tar.gz} \
+              || repo-add "$REPO_NAME.db.tar.gz"
+          ln -sf "/repository/$REPO_NAME.db.tar.gz" "/repository/$REPO_NAME.db"
+          ln -sf "/repository/$REPO_NAME.files.tar.gz" "/repository/$REPO_NAME.files"
+
+          mv "$GITHUB_WORKSPACE/.github/workflows/pacman.conf" /etc/pacman.conf
+          mv "$GITHUB_WORKSPACE"/.github/workflows/{build.sh,aur-graph} /usr/bin/
+
+          cat << EOF >> /etc/pacman.conf
+          [$REPO_NAME]
+          SigLevel = Required DatabaseOptional
+          Server = file:///repository
+          Server = $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/repo
+          EOF
+
+          pacman -Syu --noconfirm
+
+      - name: Import GPG Key
+        run: |
+          printf "%s" "$repo_key" | gpg --import
+          printf "%s" "$repo_key" | pacman-key -a -
+          pacman-key --lsign-key "$GPGKEY"
+        env:
+          repo_key: ${{ secrets.REPO_KEY }}
+
+      - name: Build Arch Linux Package(s)
+        run: |
+          chown -Rh build:build $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE
+          build.sh
+          rm -f /repository/*.old{,.sig}
+
+      # BUG: github doesn't seem to support colons (:) in the filenames, meaning
+      # packages with a EPOCH will fail to download as github silently replaces
+      # the colon with a dot.
+      - name: Upload package artefact(s)
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          tag: ${{env.RELEASE_NAME}}
+          file: '/repository/*'
+          file_glob: true
+          overwrite: true
