@@ -2,7 +2,7 @@
 
 validate_path() {
     # validate path
-    targetpath=$(realpath -m -- "$1")
+    targetpath="$(realpath -m -- "$1")"
     if [[ "$targetpath" != /.snapshots/* ]]; then
         echo "Invalid path given." >&2
         exit 2
