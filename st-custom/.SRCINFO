@@ -1,0 +1,23 @@
+pkgbase = st-custom
+	pkgdesc = Simple virtual terminal emulator for X
+	pkgver = 0.7.r93.g97418a4
+	pkgrel = 1
+	url = http://git.suckless.org/st/
+	arch = i686
+	arch = x86_64
+	arch = armv7h
+	license = MIT
+	makedepends = ncurses
+	makedepends = libxext
+	makedepends = git
+	depends = libxft
+	depends = adobe-source-code-pro-fonts
+	depends = ttf-dejavu
+	provides = st
+	conflicts = st
+	source = st::git+https://github.com/Tharre/st-transparency.git#branch=custom_config
+	source = st-terminal.desktop
+	sha256sums = SKIP
+	sha256sums = ec9f8e5505f13b450ef180edf3596de4d528fe507fbd1aed7fa715221e64770f
+
+pkgname = st-custom
