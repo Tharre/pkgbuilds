@@ -16,7 +16,7 @@ source=('etc-pacman.conf' 'etc-locale.conf' 'etc-locale.gen' 'etc-vconsole.conf'
         'borg-backup.timer' 'borgbackup'
 
         'intel-undervolt.conf' 'xps13-i915.conf')
-sha256sums=('b3b540ac0dd68831d813e34dd8465cd00e8ba6a56fa6e5a162dc5ef469ec584c'
+sha256sums=('271d6a7ac30da0d2ba055067d4ebbab76812c1735e4c2b45c619e004edc1fbba'
             '70b74b741f3b1b58eeb97d8d5b9e6148a35ff8dced47cf4a231c1d0420aff5eb'
             'b11ab0ea3d5c300afa0fb877d1f367993425a3fda0382f50f0e122625154f566'
             '978271534da06356159eb24c0cee32b0024029d41df836ab76a964dfd7d36447'
