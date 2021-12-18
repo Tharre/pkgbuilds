@@ -15,7 +15,7 @@ source=('etc-pacman.conf' 'etc-locale.conf' 'etc-locale.gen' 'etc-vconsole.conf'
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
 
-        'xps13-i915.conf')
+        'intel-undervolt.conf' 'xps13-i915.conf')
 sha256sums=('b3b540ac0dd68831d813e34dd8465cd00e8ba6a56fa6e5a162dc5ef469ec584c'
             '70b74b741f3b1b58eeb97d8d5b9e6148a35ff8dced47cf4a231c1d0420aff5eb'
             'b11ab0ea3d5c300afa0fb877d1f367993425a3fda0382f50f0e122625154f566'
@@ -31,6 +31,7 @@ sha256sums=('b3b540ac0dd68831d813e34dd8465cd00e8ba6a56fa6e5a162dc5ef469ec584c'
             '42050ba722df1cd606288e82054e131dac99bf10506f4c8d52eb9bfc0a078d89'
             'e1bf3dc5978a7641f86975b7ee770a6914b30a8e4b7e3be2f1b07eaa7098591d'
             '35e501f1114f635a4c55ccf2c9debcdff5579666dcf6d11e695be861ebd0a436'
+            '895305808aa91be3294dbaeb7840e38497fb8dbcd6309cc95c417e1a0379e596'
             '5613c98d32e513a973e8a0e250ab0b267882a73615f507b6208d4a5f21487fe6')
 
 package_base-system() {
@@ -65,9 +66,10 @@ package_backup-system() {
 
 package_xps13() {
     depends=('mesa' 'lib32-mesa' 'vulkan-intel' 'libva-intel-driver'
-             'lib32-libva-intel-driver' 'libvdpau-va-gl')
+             'lib32-libva-intel-driver' 'libvdpau-va-gl' 'intel-undervolt')
 
     install -Dm0644 xps13-i915.conf "$pkgdir"/etc/modprobe.d/i915.conf
+    install -Dm0644 intel-undervolt.conf -t "$pkgdir"/etc/
 }
 
 # TODO: docker, vagrant, devtools
