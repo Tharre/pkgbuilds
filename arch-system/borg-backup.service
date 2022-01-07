@@ -4,6 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
+RuntimeMaxSec=1800
 Nice=19
 IOSchedulingClass=3
 IOSchedulingPriority=7

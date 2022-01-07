@@ -12,8 +12,13 @@ validate_path() {
 case "$1" in
     snapshot)
         validate_path "$2"
-        touch /home
-        btrfs subvolume snapshot -r -- /home "$2"
+        # small race, but shouldn't matter
+        if ! btrfs subvolume show "$3" > /dev/null 2>&1; then
+            echo "Not a btrfs subvolume." >&2
+            exit 3
+        fi
+        touch -c -- "$3"
+        btrfs subvolume snapshot -r -- "$3" "$2"
         ;;
     delete_snapshot)
         validate_path "$2"
@@ -26,7 +31,7 @@ case "$1" in
         ;;
     cleanup)
         umount /backup 2> /dev/null || true
-        rm -rf /backup
+        rm -df /backup
         ;;
     *)
         echo "No command specified." >&2
