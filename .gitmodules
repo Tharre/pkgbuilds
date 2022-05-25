@@ -4,6 +4,3 @@
 [submodule "diod"]
 	path = diod
 	url = https://aur.archlinux.org/diod.git
-[submodule "pandoc-pyplot"]
-	path = pandoc-pyplot
-	url = https://aur.archlinux.org/pandoc-pyplot.git
