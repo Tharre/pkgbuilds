@@ -1,0 +1,16 @@
+# whitelist for pci autosuspend
+
+# Intel Sunrise PCI Express Port #1
+SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x9d10", ATTR{power/control}="auto"
+
+# Intel Xeon E3-1200 v6/7th Gen
+SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x5914", ATTR{power/control}="auto"
+
+# Intel Sunrise Point LPC Controller/eSPI Controller
+SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x9d4e", ATTR{power/control}="auto"
+
+# SK hynix PC300 NVMe SSD
+SUBSYSTEM=="pci", ATTR{vendor}=="0x1c5c", ATTR{device}=="0x1283", ATTR{power/control}="auto"
+
+# Qualcomm Atheros QCA6174 802.11ac Wireless Adapter
+SUBSYSTEM=="pci", ATTR{vendor}=="0x168c", ATTR{device}=="0x003e", ATTR{power/control}="auto"

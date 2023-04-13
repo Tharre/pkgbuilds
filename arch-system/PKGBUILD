@@ -15,7 +15,7 @@ source=('etc-pacman.conf' 'etc-locale.conf' 'etc-locale.gen' 'etc-vconsole.conf'
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
 
-        'intel-undervolt.conf' 'xps13-i915.conf')
+        'intel-undervolt.conf' 'xps13-i915.conf' 'xps13-pci_pm.rules')
 sha256sums=('271d6a7ac30da0d2ba055067d4ebbab76812c1735e4c2b45c619e004edc1fbba'
             '70b74b741f3b1b58eeb97d8d5b9e6148a35ff8dced47cf4a231c1d0420aff5eb'
             'b11ab0ea3d5c300afa0fb877d1f367993425a3fda0382f50f0e122625154f566'
@@ -32,7 +32,8 @@ sha256sums=('271d6a7ac30da0d2ba055067d4ebbab76812c1735e4c2b45c619e004edc1fbba'
             'e1bf3dc5978a7641f86975b7ee770a6914b30a8e4b7e3be2f1b07eaa7098591d'
             '276a79a04359ffae6ddf597d060278f6f58890ce2d5f6c185948b31c7a5c8927'
             '895305808aa91be3294dbaeb7840e38497fb8dbcd6309cc95c417e1a0379e596'
-            '5613c98d32e513a973e8a0e250ab0b267882a73615f507b6208d4a5f21487fe6')
+            '5613c98d32e513a973e8a0e250ab0b267882a73615f507b6208d4a5f21487fe6'
+            '4aa61e0833083d0d90e1b732374bfa5da6aa8e86aa291ab1299fc4e87e70f4e0')
 
 package_base-system() {
     depends=('gvim' 'zsh' 'tmux' 'htop' 'git' 'reflector' 'sudo' 'avahi'
@@ -70,6 +71,8 @@ package_xps13() {
 
     install -Dm0644 xps13-i915.conf "$pkgdir"/etc/modprobe.d/i915.conf
     install -Dm0644 intel-undervolt.conf -t "$pkgdir"/etc/
+    install -Dm0644 xps13-pci_pm.rules \
+        "$pkgdir"/usr/lib/udev/rules.d/99-pci_pm.rules
 }
 
 # TODO: docker, vagrant, devtools

@@ -1,6 +1,6 @@
 pkgbase = arch-system
 	pkgdesc = Arch Linux system configuration
-	pkgver = 2022.05.25
+	pkgver = 2023.04.13
 	pkgrel = 1
 	arch = any
 	license = custom
@@ -21,6 +21,7 @@ pkgbase = arch-system
 	source = borgbackup
 	source = intel-undervolt.conf
 	source = xps13-i915.conf
+	source = xps13-pci_pm.rules
 	sha256sums = 271d6a7ac30da0d2ba055067d4ebbab76812c1735e4c2b45c619e004edc1fbba
 	sha256sums = 70b74b741f3b1b58eeb97d8d5b9e6148a35ff8dced47cf4a231c1d0420aff5eb
 	sha256sums = b11ab0ea3d5c300afa0fb877d1f367993425a3fda0382f50f0e122625154f566
@@ -38,6 +39,7 @@ pkgbase = arch-system
 	sha256sums = 276a79a04359ffae6ddf597d060278f6f58890ce2d5f6c185948b31c7a5c8927
 	sha256sums = 895305808aa91be3294dbaeb7840e38497fb8dbcd6309cc95c417e1a0379e596
 	sha256sums = 5613c98d32e513a973e8a0e250ab0b267882a73615f507b6208d4a5f21487fe6
+	sha256sums = 4aa61e0833083d0d90e1b732374bfa5da6aa8e86aa291ab1299fc4e87e70f4e0
 
 pkgname = base-system
 	install = base-system.install
