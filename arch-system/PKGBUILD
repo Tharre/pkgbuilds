@@ -8,22 +8,20 @@ pkgdesc="Arch Linux system configuration"
 arch=("any")
 url=""
 license=('custom')
-source=('etc-pacman.conf' 'etc-locale.conf' 'etc-locale.gen' 'etc-vconsole.conf'
+source=('etc-pacman.conf' 'etc-locale.gen' 'etc-vconsole.conf'
         'mirrorupgrade.hook' 'sudoers-wheel' 'etc-nsswitch.conf'
-        'etc-sysctl.conf' '90-modprobe-d.hook' 'etc-yubikey.rules'
+        '90-modprobe-d.hook' 'etc-yubikey.rules'
 
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
 
         'intel-undervolt.conf' 'xps13-i915.conf' 'xps13-pci_pm.rules')
 sha256sums=('271d6a7ac30da0d2ba055067d4ebbab76812c1735e4c2b45c619e004edc1fbba'
-            '70b74b741f3b1b58eeb97d8d5b9e6148a35ff8dced47cf4a231c1d0420aff5eb'
             'b11ab0ea3d5c300afa0fb877d1f367993425a3fda0382f50f0e122625154f566'
             '978271534da06356159eb24c0cee32b0024029d41df836ab76a964dfd7d36447'
             '79ba5fdf0c69686ea0f2770c9b49b58ca26ebcce15e346d5bd56a442e684896e'
             '62c1a085f7a9d1c5d57b40516fea5d7e8dfb3593d5c0a713cd571c8e5bae2584'
             '9c1648e1e9219efbe1e4098952f7595f1ebb0eca629d2c8957079186c56d1822'
-            '67b6ebe8a8e52cd60266f418b7af77c2ef0b2b6596de494ec5c37824f355a3ae'
             '7467bb40e7d404ed249b34a0e410b8d452ebc4b90588d7e210bfa47011b5981d'
             'dd84877b7f6f4330da489fa33f843c9a7c862562a3d78dc2feea5116ac846a79'
             '483a7d9350653c2cf22f36f67f1a83cc5c95232dfc10642a20d76e3c32c9e2e3'
@@ -41,14 +39,20 @@ package_base-system() {
     install="$pkgname.install"
 
     install -Dm0644 etc-pacman.conf "$pkgdir"/etc/pacman.conf
-    install -Dm0644 etc-locale.conf "$pkgdir"/etc/locale.conf
+    install -Dm0644 /dev/stdin "$pkgdir"/etc/locale.conf <<EOF
+LANG=en_GB.UTF-8
+LC_TIME=de_DE.UTF-8
+LC_COLLATE="C"
+EOF
     install -Dm0644 etc-locale.gen "$pkgdir"/etc/locale.gen
     install -Dm0644 etc-vconsole.conf "$pkgdir"/etc/vconsole.conf
     install -Dm0644 mirrorupgrade.hook -t "$pkgdir"/usr/share/libalpm/hooks/
     install -dm0750 "$pkgdir"/etc/sudoers.d/
     install -Dm0644 sudoers-wheel "$pkgdir"/etc/sudoers.d/00_wheel
     install -Dm0644 etc-nsswitch.conf "$pkgdir"/etc/nsswitch.conf
-    install -Dm0644 etc-sysctl.conf "$pkgdir"/usr/lib/sysctl.d/99-sysctl.conf
+    install -Dm0644 /dev/stdin "$pkgdir"/usr/lib/sysctl.d/99-sysctl.conf <<EOF
+kernel.sysrq = 1
+EOF
     install -Dm0644 90-modprobe-d.hook -t "$pkgdir"/usr/share/libalpm/hooks/
     install -Dm0644 etc-yubikey.rules -t "$pkgdir"/usr/lib/udev/rules.d
 
