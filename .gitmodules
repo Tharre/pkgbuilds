@@ -1,6 +1,0 @@
-[submodule "grokmirror"]
-	path = grokmirror
-	url = https://aur.archlinux.org/grokmirror.git
-[submodule "diod"]
-	path = diod
-	url = https://aur.archlinux.org/diod.git
