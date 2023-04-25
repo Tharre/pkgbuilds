@@ -1,7 +1,6 @@
 #!/bin/bash
 
 build() {
-
     # CCID
     add_file /etc/libccid_Info.plist
     add_file /etc/reader.conf.d/libccidtwin
@@ -18,14 +17,28 @@ build() {
     add_binary /usr/lib/libpcsclite.so
 
     # PCSCD at boot before cryptsetup
+    add_systemd_drop_in pcscd.service override <<'EOF'
+[Unit]
+DefaultDependencies=no
+
+[Service]
+ExecStart=
+ExecStart=/usr/bin/pcscd --foreground --disable-polkit --auto-exit $PCSCD_ARGS
+EOF
+    add_systemd_drop_in pcscd.socket override <<'EOF'
+[Unit]
+DefaultDependencies=no
+Before=cryptsetup.target
+
+[Install]
+RequiredBy=cryptsetup.target
+EOF
     add_systemd_unit pcscd.service
-    add_systemd_unit pcscd.socket
-    add_symlink /usr/lib/systemd/system/cryptsetup.target.wants/pcscd.socket ../pcscd.socket
+    add_symlink /usr/lib/systemd/system/cryptsetup.target.requires/pcscd.socket ../pcscd.socket
 
     # MISC
     add_binary /usr/bin/p11tool
     add_file /etc/pkcs11/modules/opensc.module
-
 }
 
 help() {

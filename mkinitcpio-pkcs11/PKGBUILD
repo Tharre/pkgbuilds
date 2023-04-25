@@ -1,16 +1,17 @@
+# Maintainer: Tharre <tharre3@gmail.com>
+
 pkgname=mkinitcpio-pkcs11
-pkgver=0.3
+pkgver=0.4
 pkgrel=1
 pkgdesc='Install pkcs11 in early boot (systemd cryptsetyp.target) using pcscd.socket'
-depends=('ccid' 'opensc' 'pcsclite' 'p11-kit' 'gnutls')
+depends=('ccid' 'opensc' 'pcsclite' 'p11-kit')
 arch=('any')
-source=('pkcs11_install' 'opensc.module')
-sha256sums=(
-  '0c62dd5eb978268ed13be851b9ac46dee9aaa52c655061da5ece4c69ab4ff8f7'
-  'fea71e2e2c1853bba034106d4eb40646a787ed900fef883e09d38dcb29675db4'
-)
+source=('pkcs11_install')
+sha256sums=('503cbfab1e3271653e4d36bf33d35db3e21c76e4b454f7739691b10738876e03')
 
 package() {
-    install -D -m644 "pkcs11_install" "$pkgdir/usr/lib/initcpio/install/pkcs11"
-    install -D -m644 "opensc.module" "$pkgdir/etc/pkcs11/modules/opensc.module"
+    install -Dm644 pkcs11_install "$pkgdir/usr/lib/initcpio/install/pkcs11"
+    install -Dm644 /dev/stdin "$pkgdir/etc/pkcs11/modules/opensc.module" <<EOF
+module: opensc-pkcs11.so
+EOF
 }
