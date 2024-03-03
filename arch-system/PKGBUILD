@@ -10,7 +10,7 @@ url=""
 license=('custom')
 source=('etc-pacman.conf' 'etc-locale.gen' 'etc-vconsole.conf'
         'mirrorupgrade.hook' 'sudoers-wheel' 'etc-nsswitch.conf'
-        '90-modprobe-d.hook' 'etc-yubikey.rules'
+        '90-modprobe-d.hook'
 
         'sudoers-borgbackup' 'backup-sudo' 'borg-backup.service'
         'borg-backup.timer' 'borgbackup'
@@ -23,7 +23,6 @@ sha256sums=('8ccecac2fe69515ab18cabc36539d639df87ff22259f8d7c50fd2cc1368cadc3'
             '62c1a085f7a9d1c5d57b40516fea5d7e8dfb3593d5c0a713cd571c8e5bae2584'
             '9c1648e1e9219efbe1e4098952f7595f1ebb0eca629d2c8957079186c56d1822'
             '7467bb40e7d404ed249b34a0e410b8d452ebc4b90588d7e210bfa47011b5981d'
-            'dd84877b7f6f4330da489fa33f843c9a7c862562a3d78dc2feea5116ac846a79'
             '483a7d9350653c2cf22f36f67f1a83cc5c95232dfc10642a20d76e3c32c9e2e3'
             'd39732bec90036020ad94d52cb34b6215801a82595f7fb30f8c5e0a7f1eb9b1e'
             '94c06cbf7304996b0503cace9394c2dbc0150bc045fd30cc402e3d943a8c8abd'
@@ -54,7 +53,6 @@ EOF
 kernel.sysrq = 1
 EOF
     install -Dm0644 90-modprobe-d.hook -t "$pkgdir"/usr/share/libalpm/hooks/
-    install -Dm0644 etc-yubikey.rules -t "$pkgdir"/usr/lib/udev/rules.d
 
     ln -s /usr/share/zoneinfo/Europe/Berlin "$pkgdir"/etc/localtime
 }
