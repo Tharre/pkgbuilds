@@ -1,13 +1,13 @@
 # Maintainer: Tharre <tharre3@gmail.com>
 
 pkgname=mkinitcpio-pkcs11
-pkgver=0.4
+pkgver=0.5
 pkgrel=1
 pkgdesc='Install pkcs11 in early boot (systemd cryptsetyp.target) using pcscd.socket'
 depends=('ccid' 'opensc' 'pcsclite' 'p11-kit')
 arch=('any')
 source=('pkcs11_install')
-sha256sums=('503cbfab1e3271653e4d36bf33d35db3e21c76e4b454f7739691b10738876e03')
+sha256sums=('671e5eaa45ad51174c380414000e33ddc0399ba71cc07f01cd64521ef56b4345')
 
 package() {
     install -Dm644 pkcs11_install "$pkgdir/usr/lib/initcpio/install/pkcs11"

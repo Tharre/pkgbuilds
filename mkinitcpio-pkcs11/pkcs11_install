@@ -15,6 +15,7 @@ build() {
 
     # PCSCLITE
     add_binary /usr/lib/libpcsclite.so
+    add_binary /usr/lib/libpcsclite_real.so
 
     # PCSCD at boot before cryptsetup
     add_systemd_drop_in pcscd.service override <<'EOF'
