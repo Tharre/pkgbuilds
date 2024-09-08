@@ -35,6 +35,7 @@ build() {
 package() {
 	cd "${_pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
+	rm "${pkgdir}/usr/share/terminfo/s/"{st,st-256color}
 	install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 	install -Dm644 README FAQ -t "${pkgdir}/usr/share/doc/${pkgname}"
 	install -Dm644 "${srcdir}/st-terminal.desktop" -t "${pkgdir}/usr/share/applications"
